@@ -24,7 +24,7 @@ create python virtual envirnment and install dependences
     
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to main.py
+To run this project, you will need to add the following environment variables to submit_to_canvas.py
 
 generate your Canvas API key and add to  
 ```API_TOKEN = ''```    
