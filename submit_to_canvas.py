@@ -45,6 +45,7 @@ def gradeFromCSV(csv):
         if status != 200:
             return "submission of " + fname + " " + lname + "'s" + "grade failed\n previous submissions sucsessfull\n proceeding grades not submitted"
     
+    
     return "all submissions were sucsessful"
 
 if len(sys.argv) != 2:

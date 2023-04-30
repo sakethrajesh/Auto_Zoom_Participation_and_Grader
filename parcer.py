@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import csv
 
 def use_regex(input_text):
     # strips {date} {firstname} {lastname}
@@ -17,6 +18,9 @@ def parse(input_file):
     print(sys.argv)
     
     database = {}
+    csv_list = []
+    csv_columns = ['First Name','Last Name','Grade']
+
     # array of dictionaries with a date, sender, and message
     count = 0
     with open(input_file, encoding = 'cp850') as f_in:
@@ -29,16 +33,33 @@ def parse(input_file):
 
                 if lname == 'to':
                     lname = 'NLN'
-                database[(fname, lname)] = True
+
+                if (fname, lname) not in database:
+                    database[(fname, lname)] = True
+                    csv_list.append({'First Name':fname, 'Last Name':lname, 'Grade': 1})
     
     print(len(database))
     print(count)
+    print(len(csv_list))
+    print(csv_list)
+
+    csv_file = "grades.csv"
+
+    try:
+        with open(csv_file, 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+            writer.writeheader()
+            for data in csv_list:
+                writer.writerow(data)
+    except IOError:
+        print("I/O error")
+
 
 
 def main():
     if len(sys.argv) == 2:
-        print("invalid arguments")
-    else:
         parse(sys.argv[1])
-
+    else:
+        print("invalid arguments")
+    
 main()
